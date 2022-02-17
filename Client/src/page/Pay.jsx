@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import StripeCheckout from 'react-stripe-checkout';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 // 公鑰
 const PublicKey =
@@ -24,26 +26,51 @@ const Button = styled.button`
 `;
 
 const Pay = () => {
+	const [stripeToken, setStripeToken] = useState(null);
+
 	// 回傳token 資料
 	const onToken = (token) => {
-		console.log(token);
+		setStripeToken(token);
+		// console.log(token);
 	};
+
+	useEffect(() => {
+		const makeRequest = async () => {
+			try {
+				const res = await axios.post(
+					'http://localhost:5000/api/checkout/payment',
+					{
+						tokenId: stripeToken.id,
+						amount: 2990000,
+					}
+				);
+				console.log(res.data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		stripeToken && makeRequest();
+	}, [stripeToken]);
 
 	return (
 		<Container>
 			{/* react-stripe-checkout 設定資料*/}
-			<StripeCheckout
-				name="Jasper Shop"
-				description="購物付款"
-				image="./assets/product/product2.jpg"
-				billingAddress
-				shippingAddress
-				amount={299900}
-				token={onToken}
-				stripeKey={PublicKey}
-			>
-				<Button>付款</Button>
-			</StripeCheckout>
+			{stripeToken ? (
+				<span>交易連線中，請稍等...</span>
+			) : (
+				<StripeCheckout
+					name="Jasper Shop"
+					description="購物付款"
+					image="./assets/product/product2.jpg"
+					billingAddress
+					shippingAddress
+					amount={299900}
+					token={onToken}
+					stripeKey={PublicKey}
+				>
+					<Button>付款</Button>
+				</StripeCheckout>
+			)}
 		</Container>
 	);
 };

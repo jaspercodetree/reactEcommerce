@@ -1,7 +1,11 @@
 const router = require('express').Router();
+// 引入env
+const dotenv = require('dotenv');
+dotenv.config();
 
 // 透過密鑰連接stripe
-const stripe = require('stripe')(process.env.STRIPE_KEY);
+const Stripe = require('stripe');
+const stripe = Stripe(process.env.STRIPE_KEY);
 
 router.post('/payment', (req, res) => {
 	stripe.charges.create(
