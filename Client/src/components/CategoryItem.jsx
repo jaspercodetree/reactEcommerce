@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -9,6 +10,9 @@ const Container = styled.div`
 	margin: 1rem;
 	height: 70vh;
 `;
+const linkStyle = {
+	height: '100%',
+};
 const Image = styled.img`
 	width: 100%;
 	height: 100%;
@@ -47,11 +51,13 @@ const Button = styled.button`
 const CategoryItem = ({ item }) => {
 	return (
 		<Container key={item.id}>
-			<Image src={item.img} />
-			<Info>
-				<Title>{item.title}</Title>
-				<Button>Buy Now</Button>
-			</Info>
+			<Link style={linkStyle} to={`/productlist/${item.cat}`}>
+				<Image src={item.img} />
+				<Info>
+					<Title>{item.title}</Title>
+					<Button>Buy Now</Button>
+				</Info>
+			</Link>
 		</Container>
 	);
 };

@@ -50,7 +50,7 @@ router.get('/find/:id', async (req, res) => {
 });
 
 // get all 或條件搜尋(query)
-router.get('/find', async (req, res) => {
+router.get('/', async (req, res) => {
 	const qNew = req.query.new;
 	const qCategory = req.query.category;
 	try {

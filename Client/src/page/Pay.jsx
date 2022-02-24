@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import StripeCheckout from 'react-stripe-checkout';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // 公鑰
@@ -27,6 +28,7 @@ const Button = styled.button`
 
 const Pay = () => {
 	const [stripeToken, setStripeToken] = useState(null);
+	const navigate = useNavigate();
 
 	// 回傳token 資料
 	const onToken = (token) => {
@@ -45,6 +47,7 @@ const Pay = () => {
 					}
 				);
 				console.log(res.data);
+				navigate('/');
 			} catch (error) {
 				console.log(error);
 			}

@@ -14,7 +14,7 @@ const verifyToken = (req, res, next) => {
 			next();
 		});
 	} else {
-		res.status(400).json('未獲得授權');
+		res.status(400).json('未獲得授權1');
 	}
 };
 
@@ -24,7 +24,7 @@ const verifyTokenAuthorize = (req, res, next) => {
 		if (req.user.id === req.params.id || req.user.isAdmin) {
 			next();
 		} else {
-			res.status(400).json('未獲得授權');
+			res.status(400).json('未獲得授權2');
 		}
 	});
 };
@@ -35,7 +35,7 @@ const verifyTokenAdmin = (req, res, next) => {
 		if (req.user.isAdmin) {
 			next();
 		} else {
-			res.status(400).json('未獲得授權');
+			res.status(400).json('未獲得授權3');
 		}
 	});
 };

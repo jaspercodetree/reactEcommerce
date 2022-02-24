@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
@@ -30,6 +32,20 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const ProductList = () => {
+	//獲取網址列category字串
+	const location = useLocation();
+	const cat = location.pathname.split('/')[2];
+
+	//filter
+	const [filter, setFilter] = useState({});
+	const [sort, setSort] = useState('newest');
+	const handleFilter = (e) => {
+		setFilter({
+			...filter,
+			[e.target.name]: e.target.value,
+		});
+	};
+
 	return (
 		<Container>
 			<Navbar />
@@ -38,20 +54,16 @@ const ProductList = () => {
 			<FilterContainer>
 				<Filter>
 					<FilterText>商品:</FilterText>
-					<Select>
-						<Option disabled selected>
-							顏色
-						</Option>
+					<Select name="color" onChange={handleFilter}>
+						<Option disabled>顏色</Option>
 						<Option>白</Option>
 						<Option>黃</Option>
 						<Option>紅</Option>
 						<Option>綠</Option>
 						<Option>藍</Option>
 					</Select>
-					<Select>
-						<Option disabled selected>
-							尺寸
-						</Option>
+					<Select name="size" onChange={handleFilter}>
+						<Option disabled>尺寸</Option>
 						<Option>XL</Option>
 						<Option>L</Option>
 						<Option>M</Option>
@@ -62,13 +74,14 @@ const ProductList = () => {
 
 				<Filter>
 					<FilterText>排序:</FilterText>
-					<Select>
-						<Option selected>價格--降冪排列</Option>
-						<Option>價格--升序排列</Option>
+					<Select onChange={(e) => setSort(e.target.value)}>
+						<Option value="newest">新上架</Option>
+						<Option value="desc">價格--降冪排列</Option>
+						<Option value="asc">價格--升序排列</Option>
 					</Select>
 				</Filter>
 			</FilterContainer>
-			<Product />
+			<Product cat={cat} filter={filter} sort={sort} />
 			<NewsMessage />
 			<Footer />
 		</Container>

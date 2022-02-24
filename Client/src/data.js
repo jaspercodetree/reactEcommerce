@@ -27,16 +27,19 @@ export const categories = [
 		id: 1,
 		img: 'https://www.burton.com/static/product/W22/21959101501_LML1.png?impolicy=bglt&imwidth=486',
 		title: 'Stretch Jacket',
+		cat: 'women',
 	},
 	{
 		id: 2,
 		img: 'https://www.burton.com/static/product/W22/10510105401_3.png?impolicy=bglt&imwidth=486',
 		title: 'Burton Classic Beanie',
+		cat: 'men',
 	},
 	{
 		id: 3,
 		img: 'https://www.burton.com/static/product/W22/10039108960_LML2.png?impolicy=bglt&imwidth=486',
 		title: 'GORE-TEX Summit Pant',
+		cat: 'pant',
 	},
 ];
 
