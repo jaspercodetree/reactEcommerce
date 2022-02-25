@@ -72,7 +72,7 @@ const ProductItem = ({ item }) => {
 	return (
 		<Container>
 			<Circle></Circle>
-			<Image src={item.img} />
+			<Image src={'http://localhost:3000/assets/product/' + item.img} />
 			<Info>
 				<Icon>
 					<ShoppingCart />

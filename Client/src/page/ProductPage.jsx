@@ -86,13 +86,18 @@ const Button = styled.button`
 `;
 
 const ProductPage = () => {
+	const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 	return (
 		<div>
 			<Navbar></Navbar>
 			<Announcement></Announcement>
 			<Wrapper>
 				<ImgContainer>
-					<Img src="./assets/product/jean.jpg" />
+					<Img
+						src={
+							'http://localhost:3000/assets/product/' + 'jean.jpg'
+						}
+					/>
 				</ImgContainer>
 				<InfoContainer>
 					<Title>女有機棉混彈性丹寧直筒褲</Title>

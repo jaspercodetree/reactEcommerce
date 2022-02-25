@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Pay from './page/Pay';
 
 const App = () => {
-	const user = true;
+	const user = false;
 	return (
 		// react-router-dom v6
 		<BrowserRouter>
@@ -22,10 +22,9 @@ const App = () => {
 					path="/register"
 					element={user === true ? <Home /> : <Register />}
 				/>
-				<Route
-					path="/productlist/:category"
-					element={<ProductList />}
-				/>
+				<Route path="/productlist" element={<ProductList />}>
+					<Route path=":category" element={<ProductList />}></Route>
+				</Route>
 				<Route path="/productpage" element={<ProductPage />} />
 				<Route path="/cart" element={<Cart />} />
 				<Route path="/pay" element={<Pay />} />
