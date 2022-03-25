@@ -1,6 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ProductItem from './ProductItem';
 
@@ -41,8 +40,9 @@ const Product = ({ cat, filter, sort }) => {
 	// 透過select篩選，顯示特定產品
 	useEffect(() => {
 		//將object 全然轉為 array
+		console.log('object', filter);
 		const categoryArray = filter ? Object.entries(filter) : [];
-		// console.log('array', categoryArray[0]);
+		console.log('array', categoryArray);
 
 		let productCatFilterAry = products.filter((item) => {
 			return categoryArray.every(([key, value]) => {
@@ -58,7 +58,7 @@ const Product = ({ cat, filter, sort }) => {
 	return (
 		<Container>
 			{filterProducts.map((item) => (
-				<ProductItem key={item.id} item={item}></ProductItem>
+				<ProductItem key={item._id} item={item}></ProductItem>
 			))}
 		</Container>
 	);

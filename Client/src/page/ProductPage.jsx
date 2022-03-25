@@ -86,7 +86,6 @@ const Button = styled.button`
 `;
 
 const ProductPage = () => {
-	const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 	return (
 		<div>
 			<Navbar></Navbar>
@@ -94,9 +93,9 @@ const ProductPage = () => {
 			<Wrapper>
 				<ImgContainer>
 					<Img
-						src={
-							'http://localhost:3000/assets/product/' + 'jean.jpg'
-						}
+						src={'http://localhost:3000/assets/product/'.concat(
+							'jean.jpg'
+						)}
 					/>
 				</ImgContainer>
 				<InfoContainer>

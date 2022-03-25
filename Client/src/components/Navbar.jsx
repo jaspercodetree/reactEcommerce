@@ -2,6 +2,7 @@ import { Badge } from '@material-ui/core';
 import { Search, ShoppingCartOutlined } from '@material-ui/icons';
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
 	height: 60px;
@@ -69,16 +70,24 @@ const Navbar = () => {
 					</SearchContainer>
 				</Left>
 				<Center>
-					<Logo>Jasper.</Logo>
+					<Link to="/">
+						<Logo>Jasper.</Logo>
+					</Link>
 				</Center>
 				<Right>
-					<MenuItem>Register</MenuItem>
-					<MenuItem>Login</MenuItem>
+					<MenuItem>
+						<Link to="/register">Register</Link>
+					</MenuItem>
+					<MenuItem>
+						<Link to="/login">Login</Link>
+					</MenuItem>
 					<Badge badgeContent={4} color="primary">
-						<ShoppingCartOutlined
-							color="action"
-							style={{ cursor: 'pointer' }}
-						/>
+						<Link to="/cart">
+							<ShoppingCartOutlined
+								color="action"
+								style={{ cursor: 'pointer' }}
+							/>
+						</Link>
 					</Badge>
 				</Right>
 			</Wrapper>

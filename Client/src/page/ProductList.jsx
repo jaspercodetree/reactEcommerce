@@ -46,6 +46,8 @@ const ProductList = () => {
 		});
 	};
 
+	// console.log(filter);
+
 	return (
 		<Container>
 			<Navbar />
