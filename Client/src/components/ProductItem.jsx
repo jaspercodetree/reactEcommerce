@@ -1,6 +1,7 @@
 import { Favorite, Search, ShoppingCart } from '@material-ui/icons';
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
 	position: relative;
@@ -81,7 +82,9 @@ const ProductItem = ({ item }) => {
 					<Favorite />
 				</Icon>
 				<Icon>
-					<Search />
+					<Link to={`productpage/` + item._id}>
+						<Search />
+					</Link>
 				</Icon>
 			</Info>
 		</Container>

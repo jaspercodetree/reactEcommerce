@@ -39,6 +39,7 @@ const ProductList = () => {
 	//filter
 	const [filter, setFilter] = useState({});
 	const [sort, setSort] = useState('newest');
+
 	const handleFilter = (e) => {
 		setFilter({
 			...filter,
@@ -47,6 +48,7 @@ const ProductList = () => {
 	};
 
 	// console.log(filter);
+	console.log(sort);
 
 	return (
 		<Container>
@@ -57,20 +59,20 @@ const ProductList = () => {
 				<Filter>
 					<FilterText>商品:</FilterText>
 					<Select name="color" onChange={handleFilter}>
-						<Option disabled>顏色</Option>
-						<Option>白</Option>
-						<Option>黃</Option>
-						<Option>紅</Option>
-						<Option>綠</Option>
-						<Option>藍</Option>
+						<Option value="">全顏色</Option>
+						<Option value="white">白</Option>
+						<Option value="yellow">黃</Option>
+						<Option value="red">紅</Option>
+						<Option value="green">綠</Option>
+						<Option value="blue">藍</Option>
 					</Select>
 					<Select name="size" onChange={handleFilter}>
-						<Option disabled>尺寸</Option>
-						<Option>XL</Option>
-						<Option>L</Option>
-						<Option>M</Option>
-						<Option>S</Option>
-						<Option>XS</Option>
+						<Option value="">全尺寸</Option>
+						<Option value="xl">XL</Option>
+						<Option value="l">L</Option>
+						<Option value="m">M</Option>
+						<Option value="s">S</Option>
+						<Option value="xs">XS</Option>
 					</Select>
 				</Filter>
 

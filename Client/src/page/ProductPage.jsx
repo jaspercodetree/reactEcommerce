@@ -1,9 +1,12 @@
 import { Add, Remove } from '@material-ui/icons';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import NewsMessage from '../components/NewsMessage';
+import { publicRequest } from '../requestMethods';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -51,6 +54,7 @@ const FilterColor = styled.div`
 	height: 24px;
 	background-color: ${(props) => props.color};
 	border-radius: 50%;
+	border: 1px solid #bbb;
 	margin-right: 12px;
 	cursor: pointer;
 `;
@@ -58,6 +62,7 @@ const FilterSize = styled.select`
 	height: 36px;
 	width: 64px;
 	padding: 0 4px;
+	text-align: center;
 `;
 const FilterSizeOption = styled.option``;
 const AddContainer = styled.div`
@@ -75,6 +80,8 @@ const Amount = styled.h3`
 	border: 1px solid teal;
 	border-radius: 8px;
 	font-weight: 500;
+	width: 24px;
+	text-align: center;
 `;
 const Button = styled.button`
 	border: 1px solid teal;
@@ -86,6 +93,34 @@ const Button = styled.button`
 `;
 
 const ProductPage = () => {
+	const [product, setProduct] = useState({});
+	const [count, setCount] = useState(1);
+
+	const location = useLocation();
+	const productId = location.pathname.split('/')[2];
+
+	useEffect(() => {
+		const getProduct = async () => {
+			try {
+				const res = await publicRequest.get(
+					`product/find/` + productId
+				);
+				setProduct(res.data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getProduct();
+	}, [productId]);
+
+	const handleCount = (i) => {
+		i === 'minus' && count > 1
+			? setCount(count - 1)
+			: i === 'plus' && count < 999 && setCount(count + 1);
+	};
+
+	console.log(product);
+
 	return (
 		<div>
 			<Navbar></Navbar>
@@ -93,42 +128,45 @@ const ProductPage = () => {
 			<Wrapper>
 				<ImgContainer>
 					<Img
-						src={'http://localhost:3000/assets/product/'.concat(
-							'jean.jpg'
-						)}
+						src={
+							`http://localhost:3000/assets/product/` +
+							product?.img
+						}
 					/>
 				</ImgContainer>
 				<InfoContainer>
-					<Title>女有機棉混彈性丹寧直筒褲</Title>
-					<Desc>
-						保有丹寧素材的質感，具適度彈性，方便活動。使用有機棉製成。
-						保有丹寧素材的質感，具適度彈性，方便活動。使用有機棉製成。
-						保有丹寧素材的質感，具適度彈性，方便活動。使用有機棉製成。
-					</Desc>
-					<Price>$ 999</Price>
+					<Title>{product?.title}</Title>
+					<Desc>{product?.desc}</Desc>
+					<Price>$ {product?.price}</Price>
 					<FilterContainer>
 						<Filter>
 							<FilterTitle>顏色</FilterTitle>
-							<FilterColor color="grey"></FilterColor>
-							<FilterColor color="teal"></FilterColor>
-							<FilterColor color="darkblue"></FilterColor>
+							{product.color?.map((c) => (
+								<FilterColor color={c} key={c}></FilterColor>
+							))}
 						</Filter>
 						<Filter>
 							<FilterTitle>尺寸</FilterTitle>
 							<FilterSize>
-								<FilterSizeOption>XS</FilterSizeOption>
-								<FilterSizeOption>S</FilterSizeOption>
-								<FilterSizeOption>M</FilterSizeOption>
-								<FilterSizeOption>L</FilterSizeOption>
-								<FilterSizeOption>XL</FilterSizeOption>
+								{product.size?.map((size) => (
+									<FilterSizeOption key={size}>
+										{size.toUpperCase()}
+									</FilterSizeOption>
+								))}
 							</FilterSize>
 						</Filter>
 					</FilterContainer>
 					<AddContainer>
 						<AmountContainer>
-							<Remove style={{ cursor: 'pointer' }} />
-							<Amount>1</Amount>
-							<Add style={{ cursor: 'pointer' }} />
+							<Remove
+								style={{ cursor: 'pointer' }}
+								onClick={() => handleCount('minus')}
+							/>
+							<Amount>{count}</Amount>
+							<Add
+								style={{ cursor: 'pointer' }}
+								onClick={() => handleCount('plus')}
+							/>
 						</AmountContainer>
 						<Button>加入購物車</Button>
 					</AddContainer>

@@ -12,7 +12,6 @@ const Container = styled.div`
 const Product = ({ cat, filter, sort }) => {
 	const [products, setProducts] = useState([]);
 	const [filterProducts, setFilterProducts] = useState([]);
-
 	//向後端拿產品資訊(分為1.有category 2.全拿)
 	useEffect(() => {
 		const getProducts = async () => {
@@ -51,9 +50,35 @@ const Product = ({ cat, filter, sort }) => {
 			});
 		});
 
-		console.log(productCatFilterAry);
+		// console.log(productCatFilterAry);
 		setFilterProducts(productCatFilterAry);
 	}, [cat, filter, products]);
+
+	// const apple = [1, 3, 2, 4];
+	// apple.sort((a, b) => {
+	// 	return b - a;
+	// });
+	// console.log(apple);
+
+	useEffect(() => {
+		if (sort === 'newest') {
+			setFilterProducts((prev) =>
+				[...prev].sort(
+					(a, b) =>
+						Date.parse(`${a.createdAt}`) -
+						Date.parse(`${b.createdAt}`)
+				)
+			);
+		} else if (sort === 'asc') {
+			setFilterProducts((prev) =>
+				[...prev].sort((a, b) => a.price - b.price)
+			);
+		} else if (sort === 'desc') {
+			setFilterProducts((prev) =>
+				[...prev].sort((a, b) => b.price - a.price)
+			);
+		}
+	}, [sort]);
 
 	return (
 		<Container>

@@ -39,7 +39,7 @@ export const categories = [
 		id: 3,
 		img: 'https://www.burton.com/static/product/W22/10039108960_LML2.png?impolicy=bglt&imwidth=486',
 		title: 'GORE-TEX Summit Pant',
-		cat: 'pant',
+		cat: '',
 	},
 ];
 
